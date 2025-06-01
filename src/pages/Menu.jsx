@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import numToArray from "../utils/numToArray";
+import { ProductsContext } from "../contexts/ProductsContext";
 
-function Menu({ categories, products, handleToggleAddToCart }) {
+function Menu() {
+  const { categories, products, handleToggleAddToCart } =
+    useContext(ProductsContext);
+
   const newCategories = [{ id: 0, name: "All" }, ...categories];
 
   //////////////States

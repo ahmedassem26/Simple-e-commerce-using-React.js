@@ -1,23 +1,15 @@
+import { useContext } from "react";
 import CartItem from "../components/CartItem";
+import { ProductsContext } from "../contexts/ProductsContext";
 
-function Cart({
-  products,
-  handleDecrement,
-  handleIncrement,
-  handleReset,
-  handleRemoveItem,
-}) {
+function Cart() {
+  const { products, handleReset } = useContext(ProductsContext);
+
   const diplayedItems = products.filter((p) => p.isAddedToCart === true);
   return (
     <div className="flex flex-col justify-center bg-purple-950 p-4 rounded-2xl">
       {diplayedItems.map((item) => (
-        <CartItem
-          item={item}
-          key={item.id}
-          handleDecrement={handleDecrement}
-          handleIncrement={handleIncrement}
-          handleRemoveItem={handleRemoveItem}
-        />
+        <CartItem item={item} key={item.id} />
       ))}
       {diplayedItems.length > 0 && (
         <button
