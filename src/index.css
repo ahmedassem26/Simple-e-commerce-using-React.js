@@ -1,0 +1,30 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  /* themes: light --default; */
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  padding: 20px;
+}
+
+/* .cart-item {
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+} */
+
+.cart-item span {
+  font-size: 1.1rem;
+  color: #333;
+  margin-right: 10px;
+}
+
+/* button {
+  cursor: pointer;
+  font-weight: bold;
+} */
