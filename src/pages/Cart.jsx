@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import CartItem from "../components/CartItem";
 import { ProductsContext } from "../contexts/ProductsContext";
+import { Link } from "react-router";
 
 function Cart() {
   const { products, handleReset } = useContext(ProductsContext);
@@ -20,9 +21,14 @@ function Cart() {
         </button>
       )}
       {diplayedItems.length === 0 && (
-        <h1 className="flex justify-center">
-          Cart is empty. Go shopping to add items!
-        </h1>
+        <>
+          <h1 className="flex justify-center text-2xl">
+            Cart is empty. Go shopping to add items!
+          </h1>
+          <Link to="/menu" className="btn m-auto bg-purple-800 mt-4">
+            Go to Menu
+          </Link>
+        </>
       )}
     </div>
   );

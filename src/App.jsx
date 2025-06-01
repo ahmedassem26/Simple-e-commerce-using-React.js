@@ -1,4 +1,3 @@
-// import { useState } from "react";
 import "./index.css";
 import Cart from "./pages/Cart";
 import Navbar from "./components/Navbar";
