@@ -1,3 +1,4 @@
+//productsContext.jsx
 import { createContext, useState } from "react";
 
 export const ProductsContext = createContext();
@@ -86,6 +87,24 @@ export const ProductsProvider = ({ children }) => {
 
   const [products, setProducts] = useState(initialProducts);
 
+  //Admin Operations
+  const editProduct = (id, updatedProduct) => {
+    setProducts(
+      products.map((product) =>
+        product.id === id ? { ...product, ...updatedProduct } : product
+      )
+    );
+  };
+
+  const deleteProduct = (id) => {
+    setProducts(products.filter((product) => product.id !== id));
+  };
+
+  const addProduct = (product) => {
+    setProducts([...products, product]);
+  };
+
+  //Cart Operations
   function handleIncrement(item) {
     const index = products.findIndex((p) => p.id === item.id);
     const newProducts = structuredClone(products);
@@ -118,6 +137,7 @@ export const ProductsProvider = ({ children }) => {
     setProducts(newProducts);
   }
 
+  //Menu Operations
   function handleToggleAddToCart(item) {
     const newProducts = products.map((p) =>
       p.id === item.id
@@ -141,6 +161,9 @@ export const ProductsProvider = ({ children }) => {
         handleRemoveItem,
         handleReset,
         handleToggleAddToCart,
+        editProduct,
+        deleteProduct,
+        addProduct,
       }}
     >
       {children}
