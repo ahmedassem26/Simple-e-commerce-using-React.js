@@ -1,4 +1,3 @@
-//admin.jsx
 import { useContext, useState } from "react";
 import { ProductsContext } from "../contexts/ProductsContext";
 
@@ -13,14 +12,6 @@ const Admin = () => {
     price: 0,
     categoryId: 1,
   });
-  //   const newProduct = {
-  //     id: getNewProductId,
-  //     name: "",
-  //     count: 0,
-  //     price: 0,
-  //     isAddedToCart: false,
-  //     categoryId: 1,
-  //   };
 
   function getNewProductId() {
     const newId = Math.max(...products.map((p) => p.id), 0) + 1;
@@ -53,20 +44,6 @@ const Admin = () => {
     setIsModalOpen(true);
   };
 
-  // Handle form input changes
-  //   const handleInputChange = (e) => {
-  //     const { name, value } = e.target;
-  //     setFormData((prev) => ({
-  //       ...prev,
-  //       [name]:
-  //         name === "price"
-  //           ? parseFloat(value) || 0
-  //           : name === "categoryId"
-  //           ? parseInt(value)
-  //           : value,
-  //     }));
-  //   };
-
   const handleSubmit = () => {
     if (modalType === "add") {
       addProduct({
@@ -92,19 +69,6 @@ const Admin = () => {
       deleteProduct(id);
     }
   };
-
-  //   const handleAddProduct = (name, price, categoryId) => {
-  //     console.log("Adding product:", newProduct);
-  //     setIsAddModalOpen(false);
-  //     addProduct({
-  //       ...newProduct,
-  //       name: name,
-  //       price: price,
-  //       categoryId: categoryId,
-  //     });
-  //   };
-
-  //   const handleEdit = (updatedProduct, id) => {};
 
   return (
     <div className="p-6">

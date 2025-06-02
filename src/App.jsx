@@ -14,8 +14,8 @@ import { ProductsProvider } from "./contexts/ProductsContext";
 function App() {
   return (
     <div>
-      <Navbar />
       <ProductsProvider>
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/menu" element={<Menu />} />

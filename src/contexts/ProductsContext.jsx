@@ -1,107 +1,45 @@
-//productsContext.jsx
-import { createContext, useState } from "react";
+import axios from "axios";
+import { createContext, useEffect, useState } from "react";
 
 export const ProductsContext = createContext();
 
 export const ProductsProvider = ({ children }) => {
-  const initialProducts = [
-    {
-      id: 1,
-      name: "Large Burger",
-      count: 1,
-      price: 150,
-      isAddedToCart: true,
-      categoryId: 1,
-    },
-    {
-      id: 2,
-      name: "Large Pizza",
-      count: 1,
-      price: 140,
-      isAddedToCart: true,
-      categoryId: 2,
-    },
-    {
-      id: 3,
-      name: "Large Fries",
-      count: 1,
-      price: 160,
-      isAddedToCart: true,
-      categoryId: 3,
-    },
-    {
-      id: 4,
-      name: "Medium Burger",
-      count: 0,
-      price: 130,
-      isAddedToCart: false,
-      categoryId: 1,
-    },
-    {
-      id: 5,
-      name: "Meduim Pizza",
-      count: 0,
-      price: 120,
-      isAddedToCart: false,
-      categoryId: 2,
-    },
-    {
-      id: 6,
-      name: "Meduim Fries",
-      count: 0,
-      price: 135,
-      isAddedToCart: false,
-      categoryId: 3,
-    },
-    {
-      id: 7,
-      name: "Small Burger",
-      count: 0,
-      price: 90,
-      isAddedToCart: false,
-      categoryId: 1,
-    },
-    {
-      id: 8,
-      name: "Small Pizza",
-      count: 0,
-      price: 80,
-      isAddedToCart: false,
-      categoryId: 2,
-    },
-    {
-      id: 9,
-      name: "Small Fries",
-      count: 0,
-      price: 95,
-      isAddedToCart: false,
-      categoryId: 3,
-    },
-  ];
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
 
-  const categories = [
-    { id: 1, name: "Burger", isSelected: false },
-    { id: 2, name: "Pizza", isSelected: false },
-    { id: 3, name: "Fries", isSelected: false },
-  ];
+  //Get Products & Categories from backend
+  useEffect(() => {
+    const getAllProducts = async () => {
+      const products = await axios.get("http://localhost:3000/products");
+      setProducts(products.data);
+    };
+    getAllProducts();
 
-  const [products, setProducts] = useState(initialProducts);
+    const getAllCategories = async () => {
+      const categories = await axios.get("http://localhost:3000/categories");
+      setCategories(categories.data);
+    };
+    getAllCategories();
+  }, []);
 
   //Admin Operations
-  const editProduct = (id, updatedProduct) => {
+  const editProduct = async (id, updatedProduct) => {
     setProducts(
       products.map((product) =>
         product.id === id ? { ...product, ...updatedProduct } : product
       )
     );
+    await axios.put(`http://localhost:3000/products/${id}`, updatedProduct);
   };
 
-  const deleteProduct = (id) => {
+  const deleteProduct = async (id) => {
     setProducts(products.filter((product) => product.id !== id));
+    await axios.delete(`http://localhost:3000/products/${id}`);
   };
 
-  const addProduct = (product) => {
+  const addProduct = async (product) => {
     setProducts([...products, product]);
+    await axios.post("http://localhost:3000/products", product);
   };
 
   //Cart Operations
